@@ -1,0 +1,189 @@
+#:kivy 1.0.9
+#:import Factory kivy.factory.Factory
+
+<ScreenManagement>
+	id:screen_manager
+	
+	
+	
+	MainScreen:
+		manager:screen_manager
+	HistoryScreen:
+		manager:screen_manager
+		id:History
+	
+
+<MainScreen>:
+	id: Main
+	name:'Main'
+	MainScreenLayout:
+	
+
+<HistoryScreen>:
+
+	name: 'History'
+	HistoryScreenLayout:
+		id:HistoryScreenLayout
+	
+<HistoryScreenLayout>:
+
+	orientation:'vertical'
+	Label:
+		canvas.before:
+		    Rectangle:
+				pos: self.pos
+				size: self.size
+				source: 'scroll_background.png'
+
+		text: 'Tone Trainer 3000'
+		font_size:60
+		size_hint:1,0.3
+		color:1,0,0,1
+
+	BoxLayout:
+		orientation : 'vertical'
+		canvas.before:
+			Rectangle:
+				pos: self.pos
+				size: self.size
+				source: 'chinese_background.jpeg'
+		
+		BoxLayout:
+			orientation:'horizontal'
+			size_hint: 1,0.2
+			
+			Label:
+				text:'pinyin'
+			
+			Label:
+				text:'Chinese character'
+				
+			Label:
+				text:'Attempts'
+		
+		ScrollView:
+			id:Scroll
+			size_hint:1,0.5
+			
+		
+		FloatLayout:
+			size_hint:1,0.2
+			Button: 
+				text:'Back to home page'
+				on_release: app.root.current = 'Main'
+				size_hint:0.3,1
+
+<MainScreenLayout>:
+	orientation:'vertical'
+	
+	Label:
+		canvas.before:
+		    Rectangle:
+				pos: self.pos
+				size: self.size
+				source: 'scroll_background.png'
+
+		text: 'Tone Trainer 3000'
+		font_size:60
+		size_hint:1,0.3
+		color:1,0,0,1		
+	DisplayScreen:
+		
+
+	
+<DisplayScreen>:
+	orientation:'horizontal'
+	canvas.before:
+		Rectangle:
+			pos: self.pos
+			size: self.size
+			source: 'chinese_background.jpeg'	
+			
+	BoxLayout:
+		orientation:'vertical'
+		Image:
+			id:Soundwave
+			source:root.image
+			
+		FloatLayout:
+			size_hint:1,0.3
+			Button:
+				text:'Exit'
+				pos_hint:{'x':0,'y':0}
+				size_hint:0.3,1
+				font_size:30
+				on_press:app.Exit()
+
+		
+	BoxLayout:
+		orientation:'vertical'
+		
+		BoxLayout:
+			Label:
+				id:Character
+				text:root.character
+				font_size: 50
+				font_name:'chinese_font'
+				color:1,1,1,1
+			Label:
+				id:PinyinDisplay
+				text:root.pinyin
+				font_size:50
+				color:1,1,1,1
+				
+			
+		BoxLayout:
+			orientation: 'horizontal'
+			
+			Button:
+				id: 'Play'
+				text:'Play'
+				size_hint:0.5,0.5
+				pos_hint:{'center_x':0.25,'center_y':0.5}
+				on_release:root.Play()
+				font_size:30
+				
+			Button:
+				
+				id: 'Record'
+				text: 'Record'
+				pos_hint:{'center_x':0.75,'center_y':0.5}
+				size_hint:0.5,0.5
+				on_release : root.RecordAndCheck()
+				font_size:30
+				
+		
+		BoxLayout:
+			Button:
+				id: NextQuestion
+				text: 'Next Question'
+				on_press:root.NewQuestion()
+				font_size:30
+				
+			Button:
+				id: History
+				text: 'History'
+				on_release: root.history_popup()
+				font_size:30
+			
+		Label:
+			id:Feedback
+			text:root.feedback
+			font_size:50
+
+<MyPopup@Popup>:
+	auto_dismiss:False
+	Button:
+		text:'Closeme!'
+		on_release:root.dismiss()
+
+
+	
+	
+
+
+
+
+			
+
+	
